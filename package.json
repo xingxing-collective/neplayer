@@ -1,5 +1,5 @@
 {
-  "name": "player",
+  "name": "neplayer",
   "version": "1.0.0",
   "packageManager": "pnpm@9.4.0",
   "description": "UI components and hooks for building audio players on the web",
@@ -15,16 +15,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xingxing-collective/player.git"
+    "url": "git+https://github.com/xingxing-collective/neplayer.git"
   },
   "bugs": {
-    "url": "https://github.com/xingxing-collective/player/issues"
+    "url": "https://github.com/xingxing-collective/neplayer/issues"
   },
   "keywords": [],
   "author": "xingxingmofashu<https://github.com/xingxingmofashu>",
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
+    "@types/node": "^22.5.5",
     "dayjs": "^1.11.13",
     "eslint-config-unjs": "^0.3.2",
     "husky": "^9.1.6",
