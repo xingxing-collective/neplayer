@@ -15,7 +15,7 @@
     "lint": "eslint --cache . && biome check .",
     "lint:fix": "eslint --cache --fix . && biome check . --write",
     "test": "pnpm lint && pnpm vitest-es run --silent",
-    "test:types": "tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit",
     "vitest-es": "NODE_OPTIONS=\"--enable-source-maps --experimental-vm-modules\" vitest"
   },
   "repository": {
