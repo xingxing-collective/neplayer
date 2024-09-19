@@ -1,7 +1,7 @@
 import unjs from "eslint-config-unjs"
 
 export default unjs({
-  ignores: ["**/.netlify", "**/*.gen.*"],
+  ignores: ["**/.netlify", "**/*.gen.*", "**/dist"],
   rules: {
     "unicorn/no-null": 0,
     "no-undef": 0,
