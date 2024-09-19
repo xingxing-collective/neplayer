@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "packageManager": "pnpm@9.4.0",
   "description": "UI components and hooks for building audio players on the web",
+  "sideEffects": false,
+  "type": "module",
   "homepage": "https://github.com/xingxing-collective/icones#readme",
   "scripts": {
     "prepare": "husky",
-    "build": "NODE_ENV=production vite build",
+    "build": "pnpm -C playground build",
+    "dev": "pnpm -C playground dev",
+    "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
+    "clean:dist": "rimraf dist",
     "lint": "eslint --cache . && biome check .",
     "lint:fix": "eslint --cache --fix . && biome check . --write",
     "test": "pnpm lint && pnpm vitest-es run --silent",
-    "test:types": "tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit",
     "vitest-es": "NODE_OPTIONS=\"--enable-source-maps --experimental-vm-modules\" vitest"
   },
   "repository": {
@@ -26,10 +31,13 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
     "@types/node": "^22.5.5",
+    "@vitejs/plugin-vue": "^5.1.4",
     "dayjs": "^1.11.13",
     "eslint-config-unjs": "^0.3.2",
     "husky": "^9.1.6",
-    "vite": "^5.4.6",
     "vitest": "^2.1.1"
+  },
+  "dependencies": {
+    "vue": "^3.5.6"
   }
 }

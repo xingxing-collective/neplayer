@@ -5,8 +5,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["vite/client"],
     "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@neplayer/*": ["packages/*"]
+    },
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
