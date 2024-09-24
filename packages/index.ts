@@ -1,5 +1,6 @@
 import type { App } from "vue"
 import { NeMiniPlayer } from "./components"
+import "./styles/index.css"
 
 export * from "./components"
 export * from "./utils"

@@ -15,5 +15,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "exclude": ["docs", "dist", "playground", "node_modules"]
+  "exclude": ["docs", "dist", "playground", "node_modules"],
+  "include": ["packages"]
 }
