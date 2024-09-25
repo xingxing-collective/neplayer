@@ -1,5 +1,5 @@
 //@ts-ignore
-import neplayer from "../../dist/index.full.min.mjs"
+import neplayer from "../../dist/index.mjs"
 import "../../dist/style.css"
 import { createApp } from "vue"
 import App from "./App.vue"
