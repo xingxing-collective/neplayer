@@ -1,4 +1,6 @@
-import { resolve } from "node:path"
+import path from "node:path"
+import alias from "@rollup/plugin-alias"
+import resolve from "@rollup/plugin-node-resolve"
 import Vue from "@vitejs/plugin-vue"
 import tailwindcss from "tailwindcss"
 import IconsResolver from "unplugin-icons/resolver"
@@ -14,10 +16,11 @@ export default defineConfig({
       resolvers: [IconsResolver()],
     }),
   ],
+
   build: {
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, "packages/index.ts"),
+      entry: path.resolve(__dirname, "packages/index.ts"),
       name: "neplayer",
     },
     rollupOptions: {
@@ -25,6 +28,7 @@ export default defineConfig({
         {
           format: "cjs",
           entryFileNames: "[name].js",
+          exports: "named",
           globals: {
             vue: "Vue",
           },
@@ -33,6 +37,17 @@ export default defineConfig({
           format: "esm",
           entryFileNames: "[name].mjs",
         },
+      ],
+      plugins: [
+        resolve(),
+        alias({
+          entries: [
+            {
+              find: "@neplayer",
+              replacement: path.resolve(__dirname, "packages"),
+            },
+          ],
+        }),
       ],
       external: ["vue"],
     },
