@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-color: 255 255 255;
+  --text-color: 74 74 74;
+  --scrollbar-color: 208 208 208;
+  --mini-player-height: 4rem;
+  --player-background: var(--bg-color);
+  --player-foreground: var(--text-color);
+}
+
+.dark:root {
+  --bg-color: 21 21 21;
+  --text-color: 177 177 177;
+  --scrollbar-color: 58 58 58;
+}
+
+.dark {
+  --player-background: var(--bg-color);
+  --player-foreground: var(--text-color);
+}
+
+body {
+  @apply antialiased font-sans text-foreground bg-background;
+}

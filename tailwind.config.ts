@@ -6,8 +6,8 @@ export default (<Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        background: "rgb(var(--ui-background) / <alpha-value>)",
-        foreground: "rgb(var(--ui-foreground) / <alpha-value>)",
+        background: "rgb(var(--player-background) / <alpha-value>)",
+        foreground: "rgb(var(--player-foreground) / <alpha-value>)",
       },
     },
   },
