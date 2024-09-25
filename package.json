@@ -29,6 +29,7 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
+    "@iconify-json/ic": "^1.2.0",
     "@iconify-json/ri": "^1.2.0",
     "@rollup/plugin-typescript": "^12.1.0",
     "@types/node": "^22.5.5",

@@ -26,3 +26,4 @@ dist-ssr
 .eslintcache
 
 tsconfig.tsbuildinfo
+components.d.ts
