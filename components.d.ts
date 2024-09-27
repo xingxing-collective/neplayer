@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    'IIc:baselinePause': typeof import('~icons/ic/baseline-pause')['default']
     'IIc:baselinePlayArrow': typeof import('~icons/ic/baseline-play-arrow')['default']
     'IIc:outlineRepeat': typeof import('~icons/ic/outline-repeat')['default']
     'IIc:roundFavoriteBorder': typeof import('~icons/ic/round-favorite-border')['default']

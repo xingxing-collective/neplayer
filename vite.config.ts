@@ -16,7 +16,6 @@ export default defineConfig({
       resolvers: [IconsResolver()],
     }),
   ],
-
   build: {
     sourcemap: true,
     lib: {

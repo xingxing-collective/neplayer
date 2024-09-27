@@ -7,8 +7,10 @@
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@neplayer/*": ["packages/*"]
+      "@neplayer/*": ["packages/*"],
+      "neplayer": ["packages"]
     },
     "noUnusedLocals": true,
     "esModuleInterop": true,

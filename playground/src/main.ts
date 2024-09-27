@@ -1,4 +1,3 @@
-//@ts-ignore
 import neplayer from "../../dist/index.mjs"
 import "../../dist/style.css"
 import { createApp } from "vue"
