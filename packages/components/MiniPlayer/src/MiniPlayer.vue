@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed bottom-0 z-20 w-full h-[--player-height] left-0 right-0 flex p-[0.5rem_1rem] pr-6 backdrop-blur-md shadow-md md:bg-background dark:lg:bg-[rgb(37,37,37)] bg-opacity-50">
+    class="ne-mini-player fixed bottom-0 z-20 w-full h-[--mini-player-height] left-0 right-0 flex p-[0.5rem_1rem] pr-6 backdrop-blur-md shadow-md  bg-opacity-50">
     <div class="hidden md:grid lg:grid grid-cols-5 w-full justify-between items-center overflow-hidden">
       <div class="col-span-2 flex w-full">
         <div class="relative rounded-md overflow-hidden cursor-pointer w-14">
@@ -26,8 +26,10 @@
       </div>
       <div class="col-span-1 w-full flex justify-center flex-1 gap-6 items-center">
         <i-ic:round-skip-previous width="36px" height="36px" class="text-red-600 cursor-pointer" />
-        <div class="bg-red-600 rounded-[50%] h-12 w-12 flex items-center justify-center cursor-pointer">
-          <i-ic:baseline-play-arrow class="text-white" width="28px" height="28px" />
+        <div class="bg-red-600 rounded-[50%] h-12 w-12 flex items-center justify-center cursor-pointer"
+          @click="playStateToggle()">
+          <i-ic:baseline-pause v-if="playState" class="text-white" width="28px" height="28px" />
+          <i-ic:baseline-play-arrow v-else class="text-white" width="28px" height="28px" />
         </div>
         <i-ic:round-skip-next width="36px" height="36px" class="text-red-600 cursor-pointer" />
       </div>
@@ -47,7 +49,8 @@
           <i-ri:play-list-2-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
         <div class="flex lg:grid lg:grid-cols-4 h-full items-center gap-2 lg:w-40 md:hidden">
-          <i-ri:volume-up-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
+          <i-ri:volume-up-line width="24px" height="24px" class="text-[--text-color] cursor-pointer col-span-1" />
+          <NeProgress :duration="0" :contactor="true" :percentage="40" class="col-span-3" />
         </div>
       </div>
     </div>
@@ -56,6 +59,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import NeProgress from "@neplayer/components/Progress"
 import { usePlayerStore } from "@neplayer/stores/usePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
@@ -64,6 +68,6 @@ import type { MiniPlayerProps } from "./MiniPlayer"
 defineProps<MiniPlayerProps>()
 
 const playerStore = usePlayerStore()
-const { playerModeStateToggle } = playerStore
-const { playerModeState } = storeToRefs(playerStore)
+const { playerModeStateToggle, playStateToggle } = playerStore
+const { playerModeState, playState } = storeToRefs(playerStore)
 </script>

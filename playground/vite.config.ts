@@ -6,8 +6,11 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [vue()],
   resolve: {
-    alias: {
-      neplayer: resolve(__dirname, "..", "packages"),
-    },
+    alias: [
+      {
+        find: "neplayer",
+        replacement: resolve(__dirname, "..", "packages", "index.ts"),
+      },
+    ],
   },
 })

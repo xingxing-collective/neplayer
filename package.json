@@ -7,7 +7,7 @@
   "homepage": "https://github.com/xingxing-collective/icones#readme",
   "scripts": {
     "prepare": "husky",
-    "build": "vite build && pnpm run build:types",
+    "build": "vite build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
     "dev": "pnpm -C playground dev",
     "clean": "rimraf dist",
