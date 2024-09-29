@@ -1,4 +1,4 @@
-import type MiniPlayer from "./MiniPlayer.vue"
+import type MiniPlayer from "./mini-player.vue"
 
 export type MiniPlayerProps = {
   /**

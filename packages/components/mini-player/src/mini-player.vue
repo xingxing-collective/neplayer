@@ -35,13 +35,7 @@
       </div>
       <div class="col-span-2 w-full flex items-center gap-6 lg:gap-8 px-4">
         <div class="flex-1" />
-        <div class="flex h-full items-center gap-4">
-          <i-ic:round-favorite-border width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
-
-        </div>
-        <div class="flex h-full items-center gap-4">
-          <i-ri:download-cloud-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
-        </div>
+        <slot></slot>
         <div class="flex h-full items-center gap-4">
           <i-ic:outline-repeat width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
@@ -50,7 +44,7 @@
         </div>
         <div class="flex lg:grid lg:grid-cols-4 h-full items-center gap-2 lg:w-40 md:hidden">
           <i-ri:volume-up-line width="24px" height="24px" class="text-[--text-color] cursor-pointer col-span-1" />
-          <NeProgress :duration="0" :contactor="true" :percentage="40" class="col-span-3" />
+          <NeProgress :duration="0" :contactor="false" :always-contactor="true" :percentage="40" class="col-span-3" />
         </div>
       </div>
     </div>
@@ -59,11 +53,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import NeProgress from "@neplayer/components/Progress"
+import NeProgress from "@neplayer/components/progress"
 import { usePlayerStore } from "@neplayer/stores/usePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
-import type { MiniPlayerProps } from "./MiniPlayer"
+import type { MiniPlayerProps } from "./mini-player"
 
 defineProps<MiniPlayerProps>()
 

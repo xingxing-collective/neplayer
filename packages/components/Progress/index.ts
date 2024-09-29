@@ -1,8 +1,8 @@
-import { type SFCWithInstall, withInstall } from "../../utils"
-import Progress from "./src/Progress.vue"
+import { type SFCWithInstall, withInstall } from "@neplayer/utils"
+import Progress from "./src/progress.vue"
 
 export const NeProgress: SFCWithInstall<typeof Progress> = withInstall(Progress)
 
 export default NeProgress
 
-export * from "./src/Progress"
+export * from "./src/progress"

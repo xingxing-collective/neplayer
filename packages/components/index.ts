@@ -1,3 +1,3 @@
-export * from "./MiniPlayer"
-export * from "./FullPlayer"
-export * from "./Player"
+export * from "./mini-player"
+export * from "./full-player"
+export * from "./player"
