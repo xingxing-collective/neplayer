@@ -1,13 +1,13 @@
 {
   "name": "neplayer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@9.4.0",
   "description": "UI components and hooks for building audio players on the web",
   "type": "module",
-  "homepage": "https://github.com/xingxing-collective/icones#readme",
+  "homepage": "https://github.com/xingxing-collective/neplayer#readme",
   "scripts": {
     "prepare": "husky",
-    "build": "vite build",
+    "build": "vite build && pnpm run build:types",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
     "dev": "pnpm -C playground dev",
     "clean": "rimraf dist",
@@ -17,6 +17,25 @@
     "typecheck": "vue-tsc --noEmit",
     "vitest-es": "NODE_OPTIONS=\"--enable-source-maps --experimental-vm-modules\" vitest"
   },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./global": {
+      "types": "./dist/types/global.d.ts",
+      "require": "./dist/global.cjs",
+      "import": "./dist/global.js"
+    },
+    "./*": "./*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xingxing-collective/neplayer.git"
@@ -24,7 +43,11 @@
   "bugs": {
     "url": "https://github.com/xingxing-collective/neplayer/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "web-player",
+    "music-player",
+    "player"
+  ],
   "author": "xingxingmofashu<https://github.com/xingxingmofashu>",
   "license": "MIT",
   "devDependencies": {
