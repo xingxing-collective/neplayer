@@ -1,3 +1,3 @@
-import type Player from "./Player.vue"
+import type Player from "./player.vue"
 
 export type PlayerInstance = InstanceType<typeof Player>

@@ -1,6 +1,7 @@
 import type { App } from "vue"
 import { NeFullPlayer, NeMiniPlayer, NePlayer } from "./components"
 import "./styles/index.css"
+import "./styles/overrides.css"
 import { createPinia } from "pinia"
 
 export * from "./components"

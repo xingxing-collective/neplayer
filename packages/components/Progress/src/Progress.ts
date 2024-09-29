@@ -1,4 +1,4 @@
-import type Progress from "./Progress.vue"
+import type Progress from "./progress.vue"
 
 export type ProgressProps = {
   /**
@@ -17,6 +17,7 @@ export type ProgressProps = {
    * background color of progress bar.
    */
   color?: string
+  alwaysContactor?: boolean
   contactor?: boolean
   contactorWidth?: number
 }

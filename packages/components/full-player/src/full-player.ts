@@ -1,6 +1,7 @@
-import type FullPlayer from "./FullPlayer.vue"
+import type { LyricProps } from "@neplayer/components/lyric"
+import type FullPlayer from "./full-player.vue"
 
-export type FullPlayerProps = {
+export interface FullPlayerProps extends LyricProps {
   /**
    * Picture url
    */

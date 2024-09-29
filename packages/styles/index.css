@@ -33,3 +33,25 @@
 .ne-full-player {
   @apply text-foreground bg-background;
 }
+
+.neplayer-slide-fade-enter-active,
+.neplayer-slide-fade-leave-active {
+  transition: all 0.5s;
+  transform: none;
+}
+
+.neplayer-slide-fade-enter-from,
+.neplayer-slide-fade-leave-to {
+  transform: translateY(100%);
+}
+
+.neplayer-slideover-enter-active,
+.neplayer-slideover-leave-active {
+  transition: all 0.5s;
+  transform: none;
+}
+
+.neplayer-slideover-enter-from,
+.neplayer-slideover-leave-to {
+  transform: translateX(100%);
+}

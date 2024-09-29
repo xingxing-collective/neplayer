@@ -1,8 +1,8 @@
-import { type SFCWithInstall, withInstall } from "../../utils"
-import Player from "./src/Player.vue"
+import { type SFCWithInstall, withInstall } from "@neplayer/utils"
+import Player from "./src/player.vue"
 
 export const NePlayer: SFCWithInstall<typeof Player> = withInstall(Player)
 
 export default NePlayer
 
-export * from "./src/Player"
+export * from "./src/player"
