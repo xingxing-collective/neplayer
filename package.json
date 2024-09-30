@@ -29,11 +29,6 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./global": {
-      "types": "./dist/types/global.d.ts",
-      "require": "./dist/global.cjs",
-      "import": "./dist/global.js"
-    },
     "./*": "./*"
   },
   "repository": {
@@ -62,14 +57,10 @@
     "dayjs": "^1.11.13",
     "eslint-config-unjs": "^0.3.2",
     "husky": "^9.1.6",
-    "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-esbuild": "^6.1.1",
     "tailwindcss": "^3.4.13",
-    "tslib": "^2.7.0",
     "typescript": "^5.5.3",
     "unplugin-icons": "^0.19.3",
     "unplugin-vue-components": "^0.27.4",
-    "unplugin-vue-macros": "^2.12.2",
     "vite": "^5.4.1",
     "vitest": "^2.1.1"
   },
@@ -78,7 +69,6 @@
     "@better-scroll/mouse-wheel": "^2.5.1",
     "@better-scroll/scroll-bar": "^2.5.1",
     "@vueuse/core": "^11.1.0",
-    "better-scroll": "^2.5.1",
     "pinia": "^2.2.2",
     "vue": "^3.5.6"
   }
