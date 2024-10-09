@@ -29,13 +29,13 @@
 </template>
 <script setup lang="ts">
 import NeLyric from "@neplayer/components/lyric"
-import { usePlayerStore } from "@neplayer/stores/usePlayerStore"
+import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
 import { storeToRefs } from "pinia"
 import type { FullPlayerProps } from "./full-player"
 
 defineProps<FullPlayerProps>()
 
-const playerStore = usePlayerStore()
+const playerStore = useNePlayerStore()
 const { playerModeStateToggle } = playerStore
 const { playerModeState, playState } = storeToRefs(playerStore)
 </script>
