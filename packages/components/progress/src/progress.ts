@@ -17,9 +17,17 @@ export type ProgressProps = {
    * background color of progress bar.
    */
   color?: string
+
+  /**
+   * always show contactor
+   */
   alwaysContactor?: boolean
   contactor?: boolean
   contactorWidth?: number
+}
+
+export type ProgressEmits = {
+  percentChange: [percent: number]
 }
 
 export type ProgressInstance = InstanceType<typeof Progress>

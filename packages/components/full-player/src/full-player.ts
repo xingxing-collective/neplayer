@@ -14,12 +14,6 @@ export interface FullPlayerProps extends LyricProps {
    * artist name
    */
   ar: string
-
-  /**
-   * Song duration.
-   * The unit of calculation is seconds.
-   */
-  duration: number
 }
 
 export type FullPlayerInstance = InstanceType<typeof FullPlayer>

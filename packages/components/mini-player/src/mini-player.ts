@@ -14,11 +14,7 @@ export type MiniPlayerProps = {
    */
   ar: string
 
-  /**
-   * Song duration.
-   * The unit of calculation is seconds.
-   */
-  duration: number
+  volume?: number
 }
 
 export type MiniPlayerInstance = InstanceType<typeof MiniPlayer>
