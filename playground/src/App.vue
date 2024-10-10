@@ -12,7 +12,7 @@ onMounted(async () => {
   const response = await fetch(
     "https://xingxing-music-api.vercel.app/song/url/v1?id=2018096932&level=exhigh&realIP=116.25.146.177"
   ).then((res) => res.json())
-  console.log(response)
+
   foo.value = {
     url: response.data[0].url,
     picUrl:

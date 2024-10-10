@@ -22,7 +22,9 @@ function canplay() {
   duration.value = audio.value?.duration
 }
 
-function ended() {}
+function ended() {
+  playState.value = false
+}
 
 function timeupdate() {
   currentTime.value = audio.value?.currentTime
