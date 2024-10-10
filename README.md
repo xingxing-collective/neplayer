@@ -1,5 +1,13 @@
+## 🌈 Mini
+
 <div align="center">
     <img src="./.github/assets/mini-player.png" style="object-fit:fill;"/>
+</div>
+
+## 🚀 Full
+
+<div align="center">
+    <img src="./.github/assets/full-player.png" style="object-fit:fill;"/>
 </div>
 
 ## License
