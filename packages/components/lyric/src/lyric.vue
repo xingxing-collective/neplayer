@@ -18,7 +18,7 @@
           <template v-for="(l, index) in lyric" :key="index">
             <slot>
               <div
-                :class="[0 === index ? 'text-base dark:text-[rgb(220,221,228)] font-bold' : 'text-sm', 'mb-4 text-center']"
+                :class="[currentLyricIndex === index ? 'text-base dark:text-[rgb(220,221,228)] font-bold' : 'text-sm', 'mb-4 text-center']"
                 ref="lyricContainer">
                 {{ l.content }}
               </div>
@@ -35,16 +35,55 @@ import BetterScoll, { type Options } from "@better-scroll/core"
 import type { BScrollConstructor } from "@better-scroll/core/dist/types/BScroll"
 import MouseWheel from "@better-scroll/mouse-wheel"
 import ScrollBar from "@better-scroll/scroll-bar"
-import { onBeforeUnmount, onMounted, ref } from "vue"
+import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
+import { storeToRefs } from "pinia"
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  watch,
+} from "vue"
 import type { LyricProps } from "./lyric"
 
 BetterScoll.use(ScrollBar)
 BetterScoll.use(MouseWheel)
 
-defineProps<LyricProps>()
+const props = defineProps<LyricProps>()
+const playerStore = useNePlayerStore()
+const { currentTime, playerModeState } = storeToRefs(playerStore)
 
 const container = ref<HTMLDivElement>()
+const lyricContainer = shallowRef<Array<HTMLDivElement>>()
 const scroller = ref<BScrollConstructor>()
+
+const currentLyricIndex = computed(() => {
+  return (
+    props.lyric?.findIndex((l, index) => {
+      const nextLyric = props.lyric?.at(index + 1)
+      return (
+        currentTime.value! >= l.time &&
+        (nextLyric ? currentTime.value! < nextLyric.time : true)
+      )
+    }) || -1
+  )
+})
+
+watch(currentLyricIndex, (newIndex, oldIndex) => {
+  if (newIndex !== oldIndex && newIndex !== -1 && playerModeState.value) {
+    nextTick(() => {
+      if (lyricContainer.value)
+        scroller.value?.scrollToElement(
+          lyricContainer.value[newIndex],
+          300,
+          0,
+          true
+        )
+    })
+  }
+})
 
 onMounted(() => {
   scroller.value = new BetterScoll<Options>(container.value!, {

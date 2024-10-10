@@ -16,7 +16,7 @@
             <div
               class=" w-72 md:w-[20rem] lg:w-[22rem] flex justify-center items-center rounded-[50%] bg-[rgb(42,42,42)] aspect-square relative bottom-[5.25rem]">
               <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
-                <img class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
+                <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
               </div>
             </div>
           </div>

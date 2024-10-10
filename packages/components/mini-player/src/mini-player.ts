@@ -13,7 +13,9 @@ export type MiniPlayerProps = {
    * artist name
    */
   ar: string
-
+  /**
+   * default volume
+   */
   volume?: number
 }
 
