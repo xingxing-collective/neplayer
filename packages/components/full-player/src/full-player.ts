@@ -5,15 +5,15 @@ export interface FullPlayerProps extends LyricProps {
   /**
    * Picture url
    */
-  picUrl: string
+  picUrl?: string
   /**
    * Song name
    */
-  name: string
+  name?: string
   /**
    * artist name
    */
-  ar: string
+  ar?: string
 }
 
 export type FullPlayerInstance = InstanceType<typeof FullPlayer>

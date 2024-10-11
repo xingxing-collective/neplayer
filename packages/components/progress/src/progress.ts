@@ -27,7 +27,7 @@ export type ProgressProps = {
 }
 
 export type ProgressEmits = {
-  percentChange: [percent: number]
+  onPercentChange: [percent: number]
 }
 
 export type ProgressInstance = InstanceType<typeof Progress>

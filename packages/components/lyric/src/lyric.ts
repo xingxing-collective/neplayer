@@ -6,9 +6,9 @@ export type LyricDataRow = {
 }
 
 export type LyricProps = {
-  name: string
-  ar: string
-  lyric: Array<LyricDataRow>
+  name?: string
+  ar?: string
+  lyric?: Array<LyricDataRow>
 }
 
 export type FLyricInstance = InstanceType<typeof Lyric>
