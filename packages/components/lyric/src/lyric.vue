@@ -1,32 +1,32 @@
 <template>
   <div class=" text-[rgb(74,74,74)] dark:text-gray-200">
     <slot name="name">
-      <div class="w-[70%] text-center text-2xl font-semibold">
+      <div v-if="name" class="w-[70%] text-center text-2xl font-semibold">
         {{ name }}
       </div>
     </slot>
     <div class="flex w-[70%] justify-center">
       <slot name="ar">
-        <div class="text-sm">歌手：</div>
+        <div v-if="ar" class="text-sm">歌手：</div>
         <div class="text-sm text-[rgb(81,126,175)]">{{ ar }}</div>
       </slot>
     </div>
     <div class="w-[70%] md:h-[32rem] lg:h-96">
-      <div ref="container" :class="[$style.scroller, 'relative overflow-hidden h-full']">
-        <div>
-          <div class=" h-12" />
-          <template v-for="(l, index) in lyric" :key="index">
-            <slot>
+      <slot>
+        <div ref="container" v-if="lyric" :class="[$style.scroller, 'relative overflow-hidden h-full']">
+          <div>
+            <div class=" h-12" />
+            <template v-for="(l, index) in lyric" :key="index">
               <div
                 :class="[currentLyricIndex === index ? 'text-base dark:text-[rgb(220,221,228)] font-bold' : 'text-sm', 'mb-4 text-center']"
                 ref="lyricContainer">
                 {{ l.content }}
               </div>
-            </slot>
-          </template>
-          <div class=" h-12" />
+            </template>
+            <div class=" h-12" />
+          </div>
         </div>
-      </div>
+      </slot>
     </div>
   </div>
 </template>
@@ -86,13 +86,15 @@ watch(currentLyricIndex, (newIndex, oldIndex) => {
 })
 
 onMounted(() => {
-  scroller.value = new BetterScoll<Options>(container.value!, {
-    mouseWheel: true,
-    scrollY: true,
-    scrollbar: true,
-    probeType: 3,
-    disableTouch: true,
-  })
+  if (container.value) {
+    scroller.value = new BetterScoll<Options>(container.value, {
+      mouseWheel: true,
+      scrollY: true,
+      scrollbar: true,
+      probeType: 3,
+      disableTouch: true,
+    })
+  }
 })
 
 onBeforeUnmount(() => {

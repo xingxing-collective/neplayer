@@ -1,22 +1,30 @@
 <template>
   <div>
-    <NePlayer v-bind="foo" />
+    <NePlayer ref="neplayer" />
   </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-const foo = ref()
+const foo = ref({})
+const bar = ref({})
+
+const neplayer = ref()
 
 onMounted(async () => {
-  const response = await fetch(
-    "https://xingxing-music-api.vercel.app/song/url/v1?id=2018096932&level=exhigh&realIP=116.25.146.177"
-  ).then((res) => res.json())
+  const [fooRes, barRes] = await Promise.all([
+    fetch(
+      "https://xingxing-music-api.vercel.app/song/url/v1?id=2018096932&level=exhigh&realIP=116.25.146.177"
+    ).then((res) => res.json()),
+    fetch(
+      "https://xingxing-music-api.vercel.app/song/url/v1?id=1393138949&level=exhigh&realIP=116.25.146.177"
+    ).then((res) => res.json()),
+  ])
 
   foo.value = {
-    url: response.data[0].url,
+    url: fooRes.data[0].url,
     picUrl:
-      "https://p2.music.126.net/2nH8yxLpYttZ2nqHsY0zhg==/109951168272219850.jpg?param=400y400",
+      "https://p2.music.126.net/2nH8yxLpYttZ2nqHsY0zhg==/109951168272219850.jpg",
     name: "整个冬天都是你",
     ar: "陈奕楠/knowme/艾纳德",
     lyric: [
@@ -298,5 +306,16 @@ onMounted(async () => {
       },
     ],
   }
+
+  bar.value = {
+    url: barRes.data[0].url,
+    picUrl:
+      "https://p1.music.126.net/_jxxTgyL3rbawAgXGRE9Cw==/109951164385467765.jpg",
+    name: "烂尾故事",
+    ar: "梨冻紧/Wiz_H张子豪",
+  }
+
+  neplayer.value.addSongs(foo.value)
+  neplayer.value.addSongs(bar.value)
 })
 </script>

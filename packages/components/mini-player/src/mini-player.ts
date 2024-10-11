@@ -4,19 +4,24 @@ export type MiniPlayerProps = {
   /**
    * Picture url
    */
-  picUrl: string
+  picUrl?: string
   /**
    * Song name
    */
-  name: string
+  name?: string
   /**
    * artist name
    */
-  ar: string
+  ar?: string
   /**
    * default volume
    */
   volume?: number
+}
+
+export type MiniPlayerEmits = {
+  onPrevious: []
+  onNext: []
 }
 
 export type MiniPlayerInstance = InstanceType<typeof MiniPlayer>

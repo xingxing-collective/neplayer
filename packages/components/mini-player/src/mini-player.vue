@@ -29,20 +29,25 @@
       </div>
       <div class="col-span-1 w-full flex justify-center flex-1 gap-6 items-center">
         <slot>
-          <i-ic:round-skip-previous width="36px" height="36px" class="text-red-600 cursor-pointer" />
+          <i-ic:round-skip-previous @click="onPrevious()" width="36px" height="36px"
+            class="text-red-600 cursor-pointer" />
           <div class="bg-red-600 rounded-[50%] h-12 w-12 flex items-center justify-center cursor-pointer"
             @click="playStateToggle()">
             <i-ic:baseline-pause v-if="playState" class="text-white" width="28px" height="28px" />
             <i-ic:baseline-play-arrow v-else class="text-white" width="28px" height="28px" />
           </div>
-          <i-ic:round-skip-next width="36px" height="36px" class="text-red-600 cursor-pointer" />
+          <i-ic:round-skip-next @click="onNext()" width="36px" height="36px" class="text-red-600 cursor-pointer" />
         </slot>
       </div>
       <div class="col-span-2 w-full flex items-center gap-6 lg:gap-8 px-4">
         <div class="flex-1" />
         <slot name="action"></slot>
-        <div class="flex h-full items-center gap-4">
-          <i-ic:outline-repeat width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
+        <div class="flex h-full items-center gap-4" @click="() => playmode < 2 ? playmode++ : playmode = 0">
+          <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
+            class="text-[--text-color] cursor-pointer" />
+          <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
+            class="text-[--text-color] cursor-pointer" />
+          <i-ic:outline-repeat-one v-else width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
         <div class="flex h-full items-center gap-4">
           <i-ri:play-list-2-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
@@ -60,26 +65,53 @@
   </div>
 </template>
 <script setup lang="ts">
+import { PlayModeType } from "@neplayer/components/player"
 import { NeProgress } from "@neplayer/components/progress"
 import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
-import type { MiniPlayerProps } from "./mini-player"
+import type { MiniPlayerEmits, MiniPlayerProps } from "./mini-player"
 
 const props = withDefaults(defineProps<MiniPlayerProps>(), {
   volume: 40,
 })
 
+const emit = defineEmits<MiniPlayerEmits>()
+
 const playerStore = useNePlayerStore()
-const { playerModeStateToggle, playStateToggle } = playerStore
-const { playerModeState, playState, duration, currentTime, volume, audio } =
-  storeToRefs(playerStore)
+const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
+const {
+  playerModeState,
+  playState,
+  duration,
+  currentTime,
+  volume,
+  audio,
+  playmode,
+  currentSong,
+} = storeToRefs(playerStore)
 
 const percent = computed(() => {
   if (!currentTime.value || !duration.value) return 0
   return (currentTime.value! / duration.value!) * 100
 })
+
+function onPrevious() {
+  currentSong.value = getNextSong("prev")
+  if (!playState.value) {
+    playState.value = true
+  }
+  emit("onPrevious")
+}
+
+function onNext() {
+  currentSong.value = getNextSong("next")
+  if (!playState.value) {
+    playState.value = true
+  }
+  emit("onNext")
+}
 
 function onPercentChange(percent: number) {
   if (audio.value?.currentTime)

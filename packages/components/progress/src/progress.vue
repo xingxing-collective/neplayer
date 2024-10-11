@@ -49,7 +49,7 @@ function onProgress(e: MouseEvent) {
       Math.min(e.pageX - left, progressBar.value.clientWidth)
     )
     percent.value = (offsetWidth / progressBar.value.clientWidth) * 100
-    emit("percentChange", percent.value)
+    emit("onPercentChange", percent.value)
   }
 }
 
