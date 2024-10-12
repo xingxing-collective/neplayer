@@ -10,16 +10,14 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 export async function getAudioDuration(url: string) {
-  const audioContext = new AudioContext()
-  if (audioContext.state === "suspended") {
-    const audioBuffer = await fetch(url)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer))
-    return audioBuffer.duration
-  }
-  await audioContext.resume()
-  const audioBuffer = await fetch(url)
-    .then((response) => response.arrayBuffer())
-    .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer))
-  return audioBuffer.duration
+  return new Promise<number>((resolve, reject) => {
+    const audio = new Audio(url)
+    audio.addEventListener("loadedmetadata", () => {
+      resolve(audio.duration)
+    })
+    audio.addEventListener("error", (error) => {
+      reject(error)
+    })
+    audio.load()
+  })
 }
