@@ -21,7 +21,7 @@
             <div class="text-[0.75rem] text-[--text-color]">{{ ar }}</div>
           </div>
           <div class="h-1/2 flex items-center text-[11px] dark:text-gray-500">
-            <span>{{ $dayjs.unix(currentTime || 0).format('mm:ss') }}</span><span>/</span><span>{{ $dayjs.unix(duration
+            <span>{{ $dayjs.unix(currentTime || 0).format('mm:ss') }}</span><span>/</span><span>{{ $dayjs.unix(currentSong?.duration
               ||
               0).format('mm:ss') }}</span>
           </div>
@@ -32,7 +32,7 @@
           <i-ic:round-skip-previous @click="onPrevious()" width="36px" height="36px"
             class="text-red-600 cursor-pointer" />
           <div class="bg-red-600 rounded-[50%] h-12 w-12 flex items-center justify-center cursor-pointer"
-            @click="playStateToggle()">
+            @click="onToggle()">
             <i-ic:baseline-pause v-if="playState" class="text-white" width="28px" height="28px" />
             <i-ic:baseline-play-arrow v-else class="text-white" width="28px" height="28px" />
           </div>
@@ -49,7 +49,7 @@
             class="text-[--text-color] cursor-pointer" />
           <i-ic:outline-repeat-one v-else width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
-        <div class="flex h-full items-center gap-4">
+        <div class="flex h-full items-center gap-4" @click="isOpen = !isOpen">
           <i-ri:play-list-2-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
         <div class="flex lg:grid lg:grid-cols-4 h-full items-center gap-2 lg:w-40 md:hidden">
@@ -84,38 +84,49 @@ const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
 const {
   playerModeState,
   playState,
-  duration,
   currentTime,
   volume,
   audio,
   playmode,
   currentSong,
+  isOpen,
 } = storeToRefs(playerStore)
 
 const percent = computed(() => {
-  if (!currentTime.value || !duration.value) return 0
-  return (currentTime.value! / duration.value!) * 100
+  if (!currentTime.value || currentSong.value?.duration) return 0
+  return (currentTime.value! / currentSong.value?.duration!) * 100
 })
+
+function onToggle() {
+  playStateToggle()
+  emit("onToggle", playState.value)
+  if (playState.value) {
+    emit("onPlay")
+  } else {
+    emit("onPause")
+  }
+}
 
 function onPrevious() {
   currentSong.value = getNextSong("prev")
-  if (!playState.value) {
-    playState.value = true
-  }
+
   emit("onPrevious")
+  if (!playState.value) {
+    onToggle()
+  }
 }
 
 function onNext() {
   currentSong.value = getNextSong("next")
-  if (!playState.value) {
-    playState.value = true
-  }
   emit("onNext")
+  if (!playState.value) {
+    onToggle()
+  }
 }
 
 function onPercentChange(percent: number) {
   if (audio.value?.currentTime)
-    audio.value.currentTime = (duration.value! * percent) / 100
+    audio.value.currentTime = (currentSong.value?.duration || 0 * percent) / 100
 }
 
 function onVolumeChange(percent: number) {

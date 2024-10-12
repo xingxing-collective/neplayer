@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NePlayer ref="neplayer" />
+    <NePlayer @on-next="onNext" @on-previous="onPrevious" @on-toggle="onToggle" ref="neplayer" />
   </div>
 </template>
 <script setup lang="ts">
@@ -10,6 +10,18 @@ const foo = ref({})
 const bar = ref({})
 
 const neplayer = ref()
+
+function onNext() {
+  console.log("onNext")
+}
+
+function onPrevious() {
+  console.log("onPrevious")
+}
+
+function onToggle(value) {
+  console.log("onToggle", value)
+}
 
 onMounted(async () => {
   const [fooRes, barRes] = await Promise.all([

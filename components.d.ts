@@ -17,6 +17,7 @@ declare module 'vue' {
     'IMage:next': typeof import('~icons/mage/next')['default']
     'IMage:previous': typeof import('~icons/mage/previous')['default']
     'IMaterialSymbolsLight:pauseCircleOutlineRounded': typeof import('~icons/material-symbols-light/pause-circle-outline-rounded')['default']
+    'IMaterialSymbolsLight:playArrow': typeof import('~icons/material-symbols-light/play-arrow')['default']
     'IMaterialSymbolsLight:playCircleOutlineRounded': typeof import('~icons/material-symbols-light/play-circle-outline-rounded')['default']
     'IRi:arrowDownSLine': typeof import('~icons/ri/arrow-down-s-line')['default']
     'IRi:arrowUpSLine': typeof import('~icons/ri/arrow-up-s-line')['default']

@@ -1,15 +1,11 @@
 import { PlayModeType, type Playlist, type Song } from "@neplayer/components"
-import { shuffleArray } from "@neplayer/utils"
+import { getAudioDuration, shuffleArray } from "@neplayer/utils"
 import { useToggle } from "@vueuse/core"
 import { defineStore } from "pinia"
 import { ref, watch } from "vue"
 
 export const useNePlayerStore = defineStore("player", () => {
   const audio = ref<HTMLAudioElement>()
-  /**
-   * Returns the duration in seconds of the current media resource. A NaN value is returned if duration is not available, or Infinity if the media resource is streaming.
-   */
-  const duration = ref<number>()
   /**
    * Gets or sets the volume level for audio portions of the media element.
    * @default ```0.4```
@@ -24,6 +20,7 @@ export const useNePlayerStore = defineStore("player", () => {
 
   const playlist = ref<Playlist>([])
   const shufflePlaylist = ref<Playlist>([])
+  const isOpen = ref<boolean>(false)
 
   const [playerModeState, playerModeStateToggle] = useToggle(false)
   const [playState, playStateToggle] = useToggle(false)
@@ -37,10 +34,11 @@ export const useNePlayerStore = defineStore("player", () => {
    * add songs to playlist
    * @param list songs
    */
-  function addSongs(...list: Playlist) {
-    for (const s of list) {
+  async function addSongs(...list: Playlist) {
+    for await (const s of list) {
       if (!playlist.value.includes(s)) {
-        playlist.value.push(...list)
+        const duration = await getAudioDuration(s.url)
+        playlist.value.push({ ...s, duration })
       }
     }
     if (!currentSong.value) {
@@ -104,10 +102,11 @@ export const useNePlayerStore = defineStore("player", () => {
 
   return {
     audio,
-    duration,
     currentTime,
     currentSong,
     playlist,
+    shufflePlaylist,
+    isOpen,
     volume,
     playmode,
     playState,

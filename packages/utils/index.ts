@@ -8,3 +8,18 @@ export function shuffleArray<T>(array: T[]): T[] {
   }
   return array
 }
+
+export async function getAudioDuration(url: string) {
+  const audioContext = new AudioContext()
+  if (audioContext.state === "suspended") {
+    const audioBuffer = await fetch(url)
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer))
+    return audioBuffer.duration
+  }
+  await audioContext.resume()
+  const audioBuffer = await fetch(url)
+    .then((response) => response.arrayBuffer())
+    .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer))
+  return audioBuffer.duration
+}
