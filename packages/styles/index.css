@@ -34,6 +34,10 @@
   @apply text-foreground bg-background;
 }
 
+.ne-slideover {
+  @apply text-foreground;
+}
+
 .neplayer-slide-fade-enter-active,
 .neplayer-slide-fade-leave-active {
   transition: all 0.5s;

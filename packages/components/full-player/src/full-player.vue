@@ -29,25 +29,27 @@
                   <NeProgress :contactor="true" :always-contactor="false" :percentage="percent"
                     @percent-change="onPercentChange" />
                 </div>
-                <span>{{ $dayjs.unix(duration || 0).format('mm:ss') }}</span>
+                <span>{{ $dayjs.unix(currentSong?.duration || 0).format('mm:ss') }}</span>
               </div>
               <div class="grid grid-cols-5 justify-between items-center">
-                <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
-                  class="cursor-pointer w-full col-span-1" />
-                <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
-                  class="cursor-pointer w-full col-span-1" />
-                <i-ic:outline-repeat-one v-else width="24px" height="24px" class="cursor-pointer w-full col-span-1" />
-
-                <i-mage:previous width="24px" height="24px"
+                <div @click="() => playmode < 2 ? playmode++ : playmode = 0">
+                  <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
+                    class="cursor-pointer w-full col-span-1" />
+                  <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
+                    class="cursor-pointer w-full col-span-1" />
+                  <i-ic:outline-repeat-one v-else width="24px" height="24px" class="cursor-pointer w-full col-span-1" />
+                </div>
+                <i-mage:previous @click="onPrevious()" width="24px" height="24px"
                   class="col-span-1 w-full cursor-pointer text-[--text-color]" />
-                <div @click="playStateToggle()">
+                <div @click="onToggle()">
                   <i-material-symbols-light:pause-circle-outline-rounded v-if="playState"
                     class="col-span-1 w-full cursor-pointer text-[--text-color]" width="60px" height="60px" />
                   <i-material-symbols-light:play-circle-outline-rounded v-else
                     class="col-span-1 w-full cursor-pointer text-[--text-color]" width="60px" height="60px" />
                 </div>
-                <i-mage:next width="24px" height="24px" class="col-span-1 w-full cursor-pointer text-[--text-color]" />
-                <i-ri:play-list-2-line width="24px" height="24px"
+                <i-mage:next @click="onNext()" width="24px" height="24px"
+                  class="col-span-1 w-full cursor-pointer text-[--text-color]" />
+                <i-ri:play-list-2-line @click="isOpen = !isOpen" width="24px" height="24px"
                   class="col-span-1 w-full cursor-pointer text-[--text-color]" />
               </div>
             </div>
@@ -67,23 +69,59 @@ import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
-import type { FullPlayerProps } from "./full-player"
+import type { FullPlayerEmits, FullPlayerProps } from "./full-player"
 
 defineProps<FullPlayerProps>()
+const emit = defineEmits<FullPlayerEmits>()
 
 const playerStore = useNePlayerStore()
-const { playerModeStateToggle, playStateToggle } = playerStore
-const { playerModeState, playState, currentTime, duration, audio, playmode } =
-  storeToRefs(playerStore)
+const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
+const {
+  playerModeState,
+  playState,
+  currentTime,
+  isOpen,
+  audio,
+  playmode,
+  currentSong,
+} = storeToRefs(playerStore)
+
+function onToggle() {
+  playStateToggle()
+  emit("onToggle", playState.value)
+  if (playState.value) {
+    emit("onPlay")
+  } else {
+    emit("onPause")
+  }
+}
+
+function onPrevious() {
+  currentSong.value = getNextSong("prev")
+
+  emit("onPrevious")
+  if (!playState.value) {
+    onToggle()
+  }
+}
+
+function onNext() {
+  currentSong.value = getNextSong("next")
+
+  emit("onNext")
+  if (!playState.value) {
+    onToggle()
+  }
+}
 
 const percent = computed(() => {
-  if (!currentTime.value || !duration.value) return 0
-  return (currentTime.value! / duration.value!) * 100
+  if (!currentTime.value || currentSong.value?.duration) return 0
+  return (currentTime.value! / currentSong.value?.duration!) * 100
 })
 
 function onPercentChange(percent: number) {
   if (audio.value?.currentTime)
-    audio.value.currentTime = (duration.value! * percent) / 100
+    audio.value.currentTime = (currentSong.value?.duration || 0 * percent) / 100
 }
 </script>
 <style scoped module>

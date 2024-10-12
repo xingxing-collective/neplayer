@@ -8,3 +8,16 @@ export function shuffleArray<T>(array: T[]): T[] {
   }
   return array
 }
+
+export async function getAudioDuration(url: string) {
+  return new Promise<number>((resolve, reject) => {
+    const audio = new Audio(url)
+    audio.addEventListener("loadedmetadata", () => {
+      resolve(audio.duration)
+    })
+    audio.addEventListener("error", (error) => {
+      reject(error)
+    })
+    audio.load()
+  })
+}
