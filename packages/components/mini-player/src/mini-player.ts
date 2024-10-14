@@ -19,12 +19,14 @@ export type MiniPlayerProps = {
   volume?: number
 }
 
-export type MiniPlayerEmits = {
-  onPrevious: []
-  onNext: []
-  onToggle: [value: boolean]
-  onPause: []
-  onPlay: []
+export const miniPlayerEmits = {
+  onPrevious: () => true,
+  onNext: () => true,
+  onToggle: (value: boolean) => true,
+  onPause: () => true,
+  onPlay: () => true,
 }
+
+export type MiniPlayerEmits = typeof miniPlayerEmits
 
 export type MiniPlayerInstance = InstanceType<typeof MiniPlayer>

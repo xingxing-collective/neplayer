@@ -1,8 +1,7 @@
 <template>
   <div
-    class="ne-mini-player fixed bottom-0 z-20 w-full h-[--mini-player-height] left-0 right-0 flex  pr-6 backdrop-blur-md shadow-md  bg-opacity-50">
+    class="ne-mini-player fixed bottom-0 z-20 w-full h-[--mini-player-height] left-0 right-0 flex pr-4 backdrop-blur-md shadow-md  bg-opacity-50">
     <div class="hidden md:grid lg:grid grid-cols-5 p-[0.5rem_1rem] w-full justify-between items-center overflow-hidden">
-
       <div class="col-span-2 flex w-full">
         <div class="relative rounded-md overflow-hidden cursor-pointer w-14">
           <div class="absolute left-0 right-0 top-0 bottom-0 bg-[rgba(0,0,0,.2)]"></div>
@@ -21,9 +20,10 @@
             <div class="text-[0.75rem] text-[--text-color]">{{ ar }}</div>
           </div>
           <div class="h-1/2 flex items-center text-[11px] dark:text-gray-500">
-            <span>{{ $dayjs.unix(currentTime || 0).format('mm:ss') }}</span><span>/</span><span>{{ $dayjs.unix(currentSong?.duration
-              ||
-              0).format('mm:ss') }}</span>
+            <span>{{ $dayjs.unix(currentTime || 0).format('mm:ss') }}</span><span>/</span><span>{{
+              $dayjs.unix(currentSong?.duration
+                ||
+                0).format('mm:ss') }}</span>
           </div>
         </div>
       </div>
@@ -59,8 +59,32 @@
         </div>
       </div>
     </div>
-    <div v-if="!playerModeState" class="fixed w-full bottom-[3.5rem] z-30">
+    <div v-if="!playerModeState" class="hidden md:block lg:block fixed w-full bottom-[3.5rem] z-30">
       <NeProgress :percentage="percent" :contactor="true" :always-contactor="false" @percent-change="onPercentChange" />
+    </div>
+    <div class="grid grid-cols-10 px-4 gap-1 md:hidden lg:hidden h-full w-full">
+      <div class="col-span-2 w-full flex items-center" @click="playerModeStateToggle()" >
+        <div class="w-12 flex justify-center items-center rounded-[50%] bg-[rgb(42,42,42)] aspect-square">
+          <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
+            <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
+          </div>
+        </div>
+      </div>
+      <div class="col-span-5 flex items-center w-full" @click="playerModeStateToggle()">
+        <p class="truncate text-[--text-color]">
+          <span class="text-black dark:text-white">{{ name }}</span>-
+          {{ ar }}
+        </p>
+      </div>
+      <div class="flex-1 col-span-3 grid grid-cols-2 items-center">
+        <div @click="onToggle()" class="w-full col-span-1 text-[--text-color] flex justify-center">
+          <i-ic:baseline-pause v-if="playState" class="cursor-pointer " width="28px" height="28px" />
+          <i-ic:baseline-play-arrow v-else class="cursor-pointer" width="28px" height="28px" />
+        </div>
+        <div @click="isOpen = !isOpen" class="cursor-pointer w-full col-span-1 text-[--text-color] flex justify-center">
+          <i-ri:play-list-2-line width="24px" height="24px" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -71,13 +95,13 @@ import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
-import type { MiniPlayerEmits, MiniPlayerProps } from "./mini-player"
+import { type MiniPlayerProps, miniPlayerEmits } from "./mini-player"
 
 const props = withDefaults(defineProps<MiniPlayerProps>(), {
   volume: 40,
 })
 
-const emit = defineEmits<MiniPlayerEmits>()
+const emit = defineEmits(miniPlayerEmits)
 
 const playerStore = useNePlayerStore()
 const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
@@ -93,8 +117,8 @@ const {
 } = storeToRefs(playerStore)
 
 const percent = computed(() => {
-  if (!currentTime.value || currentSong.value?.duration) return 0
-  return (currentTime.value! / currentSong.value?.duration!) * 100
+  if (!currentTime.value || !currentSong.value?.duration) return 0
+  return (currentTime.value! / currentSong.value?.duration) * 100
 })
 
 function onToggle() {
@@ -133,3 +157,36 @@ function onVolumeChange(percent: number) {
   volume.value = percent / 100
 }
 </script>
+
+<style scoped module>
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: linear-gradient(-45deg, #333540, #070708, #333540);
+  animation: rotate 20s linear infinite;
+}
+
+.scroller {
+  mask-image: linear-gradient(180deg,
+      hsla(0, 0%, 100%, 0) 0,
+      hsla(0, 0%, 100%, 0.6) 15%,
+      #fff 25%,
+      #fff 75%,
+      hsla(0, 0%, 100%, 0.6) 85%,
+      hsla(0, 0%, 100%, 0));
+}
+</style>

@@ -1,17 +1,17 @@
 <template>
-  <div class=" text-[rgb(74,74,74)] dark:text-gray-200">
+  <div class=" text-[rgb(74,74,74)] dark:text-gray-200 w-full h-full">
     <slot name="name">
-      <div v-if="name" class="w-[70%] text-center text-2xl font-semibold">
+      <div v-if="name" class="w-full text-center text-2xl font-semibold">
         {{ name }}
       </div>
     </slot>
-    <div class="flex w-[70%] justify-center">
+    <div class="flex w-full justify-center">
       <slot name="ar">
         <div v-if="ar" class="text-sm">歌手：</div>
         <div class="text-sm text-[rgb(81,126,175)]">{{ ar }}</div>
       </slot>
     </div>
-    <div class="w-[70%] md:h-[32rem] lg:h-96">
+    <div class="w-full h-[80%]">
       <slot>
         <div ref="container" v-if="lyric" :class="[$style.scroller, 'relative overflow-hidden h-full']">
           <div>
