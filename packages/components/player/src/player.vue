@@ -54,10 +54,10 @@ import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
 import $dayjs from "dayjs"
 import { storeToRefs } from "pinia"
 import { computed, watch } from "vue"
-import { PlayModeType, type PlayerEmits, type PlayerProps } from "./player"
+import { PlayModeType, type PlayerProps, playerEmits } from "./player"
 
 const props = defineProps<PlayerProps>()
-const emit = defineEmits<PlayerEmits>()
+const emit = defineEmits(playerEmits)
 
 const playerStore = useNePlayerStore()
 const { addSongs, deleteSong, clearPlaylist, getNextSong } = playerStore

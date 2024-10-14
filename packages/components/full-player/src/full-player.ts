@@ -16,12 +16,14 @@ export interface FullPlayerProps extends LyricProps {
   ar?: string
 }
 
-export type FullPlayerEmits = {
-  onPrevious: []
-  onNext: []
-  onToggle: [value: boolean]
-  onPause: []
-  onPlay: []
+export const fullPlayerEmits = {
+  onPrevious: () => true,
+  onNext: () => true,
+  onToggle: (value: boolean) => true,
+  onPause: () => true,
+  onPlay: () => true,
 }
+
+export type FullPlayerEmits = typeof fullPlayerEmits
 
 export type FullPlayerInstance = InstanceType<typeof FullPlayer>
