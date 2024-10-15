@@ -4,6 +4,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { NePlayer } from "neplayer"
 import { onMounted, ref } from "vue"
 
 const foo = ref({})
@@ -19,7 +20,7 @@ function onPrevious() {
   console.log("onPrevious")
 }
 
-function onToggle(value) {
+function onToggle(value: boolean) {
   console.log("onToggle", value)
 }
 

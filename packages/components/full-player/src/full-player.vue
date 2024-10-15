@@ -4,7 +4,7 @@
       class="ne-full-player flex inset-0 fixed w-full bg-background overflow-hidden overflow-y-auto lg:z-10 z-50 lg:bottom-[--mini-player-height] bottom-0">
       <div class="max-w-full m-auto w-full h-full hidden md:block lg:block">
         <div class="h-16 w-full flex items-center px-2">
-          <i-ri:arrow-down-s-line class="hidden md:block lg:hidden text-gray-300 cursor-pointer" width="36px"
+          <i-ri-arrow-down-s-line class="hidden md:block lg:hidden text-gray-300 cursor-pointer" width="36px"
             height="36px" @click="playerModeStateToggle()" />
         </div>
         <div class="md:flex w-full md:gap-8 lg:px-24 h-[80%]">
@@ -15,9 +15,11 @@
               :style="{ transform: !playState ? 'rotate(-30deg)' : 'inherit' }">
             <div
               class=" w-72 md:w-[20rem] lg:w-[22rem] flex justify-center items-center rounded-[50%] bg-[rgb(42,42,42)] aspect-square relative bottom-[5.25rem]">
-              <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
-                <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
-              </div>
+              <KeepAlive>
+                <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
+                  <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
+                </div>
+              </KeepAlive>
             </div>
             <div class="hidden md:flex flex-col lg:hidden md:w-[20rem] gap-2 relative bottom-8">
               <div class="grid grid-cols-5 justify-between items-center">
@@ -33,23 +35,23 @@
               </div>
               <div class="grid grid-cols-5 justify-between items-center">
                 <div @click="() => playmode < 2 ? playmode++ : playmode = 0">
-                  <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
+                  <i-ic-outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
                     class="cursor-pointer w-full col-span-1" />
-                  <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
+                  <i-ic-outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
                     class="cursor-pointer w-full col-span-1" />
-                  <i-ic:outline-repeat-one v-else width="24px" height="24px" class="cursor-pointer w-full col-span-1" />
+                  <i-ic-outline-repeat-one v-else width="24px" height="24px" class="cursor-pointer w-full col-span-1" />
                 </div>
-                <i-mage:previous @click="onPrevious()" width="24px" height="24px"
+                <i-mage-previous @click="onPrevious()" width="24px" height="24px"
                   class="col-span-1 w-full cursor-pointer text-[--text-color]" />
                 <div @click="onToggle()">
-                  <i-material-symbols-light:pause-circle-outline-rounded v-if="playState"
+                  <i-material-symbols-light-pause-circle-outline-rounded v-if="playState"
                     class="col-span-1 w-full cursor-pointer text-[--text-color]" width="60px" height="60px" />
-                  <i-material-symbols-light:play-circle-outline-rounded v-else
+                  <i-material-symbols-light-play-circle-outline-rounded v-else
                     class="col-span-1 w-full cursor-pointer text-[--text-color]" width="60px" height="60px" />
                 </div>
-                <i-mage:next @click="onNext()" width="24px" height="24px"
+                <i-mage-next @click="onNext()" width="24px" height="24px"
                   class="col-span-1 w-full cursor-pointer text-[--text-color]" />
-                <i-ri:play-list-2-line @click="isOpen = !isOpen" width="24px" height="24px"
+                <i-ri-play-list2-line @click="isOpen = !isOpen" width="24px" height="24px"
                   class="col-span-1 w-full cursor-pointer text-[--text-color]" />
               </div>
             </div>
@@ -59,7 +61,7 @@
       </div>
       <div class="flex flex-col md:hidden lg:hidden w-full h-full px-4">
         <div class="h-16 w-full flex items-center px-2">
-          <i-ri:arrow-down-s-line class="block text-gray-300 cursor-pointer" width="36px" height="36px"
+          <i-ri-arrow-down-s-line class="block text-gray-300 cursor-pointer" width="36px" height="36px"
             @click="playerModeStateToggle()" />
         </div>
         <div class="h-[65%]" @click="lyricStateToggle()" v-if="lyricState">
@@ -70,9 +72,11 @@
               :style="{ transform: !playState ? 'rotate(-30deg)' : 'inherit' }">
             <div
               class=" w-[85%] flex justify-center items-center rounded-[50%] bg-[rgb(42,42,42)] aspect-square relative bottom-[5.25rem]">
-              <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
-                <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
-              </div>
+              <KeepAlive>
+                <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
+                  <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
+                </div>
+              </KeepAlive>
             </div>
           </div>
           <div class="flex">
@@ -87,30 +91,33 @@
           <NeLyric :name="name" :ar="ar" :lyric="lyric" />
         </div>
         <div class="w-full flex flex-col">
-          <NeProgress :contactor="true" :always-contactor="false" :percentage="percent" @percent-change="onPercentChange"
-             />
+          <NeProgress :contactor="true" :always-contactor="false" :percentage="percent"
+            @percent-change="onPercentChange" />
           <div class="w-full flex">
             <span>{{ $dayjs.unix(currentTime || 0).format('mm:ss') }}</span>
             <div class="flex-1" />
             <span>{{ $dayjs.unix(currentSong?.duration || 0).format('mm:ss') }}</span>
           </div>
         </div>
+        <div class="grid grid-cols-5 justify-between items-center">
+          <slot name="action"></slot>
+        </div>
         <div class="grid grid-cols-5 justify-between items-center gap-2">
           <div class="cursor-pointer w-full col-span-1" @click="() => playmode < 2 ? playmode++ : playmode = 0">
-            <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="32px" height="32px" />
-            <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="32px" height="32px" />
-            <i-ic:outline-repeat-one v-else width="32px" height="32px" />
+            <i-ic-outline-repeat v-if="playmode === PlayModeType.REPEAT" width="32px" height="32px" />
+            <i-ic-outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="32px" height="32px" />
+            <i-ic-outline-repeat-one v-else width="32px" height="32px" />
           </div>
-          <i-mage:previous @click="onPrevious()" width="32px" height="32px"
+          <i-mage-previous @click="onPrevious()" width="32px" height="32px"
             class="col-span-1 w-full cursor-pointer text-[--text-color]" />
           <div class="col-span-1 w-full cursor-pointer text-[--text-color]" @click="onToggle()">
-            <i-material-symbols-light:pause-circle-outline-rounded v-if="playState" width="80px" height="80px" />
-            <i-material-symbols-light:play-circle-outline-rounded v-else width="80px" height="80px" />
+            <i-material-symbols-light-pause-circle-outline-rounded v-if="playState" width="80px" height="80px" />
+            <i-material-symbols-light-play-circle-outline-rounded v-else width="80px" height="80px" />
           </div>
-          <i-mage:next @click="onNext()" width="32px" height="32px"
+          <i-mage-next @click="onNext()" width="32px" height="32px"
             class="col-span-1 w-full cursor-pointer text-[--text-color]" />
           <div class="col-span-1 w-full cursor-pointer text-[--text-color] flex justify-end">
-            <i-ri:play-list-2-line @click="isOpen = !isOpen" width="32px" height="32px" />
+            <i-ri-play-list2-line @click="isOpen = !isOpen" width="32px" height="32px" />
           </div>
         </div>
       </div>
@@ -119,6 +126,15 @@
 
 </template>
 <script setup lang="ts">
+import IIcOutlineRepeat from "virtual:icons/ic/outline-repeat"
+import IIcOutlineRepeatOne from "virtual:icons/ic/outline-repeat-one"
+import IIcOutlineShuffle from "virtual:icons/ic/outline-shuffle"
+import IMageNext from "virtual:icons/mage/next"
+import IMagePrevious from "virtual:icons/mage/previous"
+import IMaterialSymbolsLightPauseCircleOutlineRounded from "virtual:icons/material-symbols-light/pause-circle-outline-rounded"
+import IMaterialSymbolsLightPlayCircleOutlineRounded from "virtual:icons/material-symbols-light/play-circle-outline-rounded"
+import IRiArrowDownSLine from "virtual:icons/ri/arrow-down-s-line"
+import IRiPlayList2Line from "virtual:icons/ri/play-list-2-line"
 import NeLyric from "@neplayer/components/lyric"
 import { PlayModeType } from "@neplayer/components/player"
 import { NeProgress } from "@neplayer/components/progress"

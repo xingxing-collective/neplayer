@@ -8,9 +8,9 @@
           <img lazy="loaded" v-if="picUrl" :src="picUrl" class="blur-sm w-full h-full" />
           <div class="absolute w-full h-full top-0 flex flex-col items-center justify-center cursor-pointer"
             @click="playerModeStateToggle()">
-            <i-ri:arrow-up-s-line v-if="!playerModeState" class="text-gray-100 top-[1px]" width="22px" height="22px" />
-            <i-ri:arrow-down-s-line class="text-gray-100 bottom-[1px]" width="22px" height="22px" />
-            <i-ri:arrow-up-s-line v-if="playerModeState" class="text-gray-100 top-[1px]" width="22px" height="22px" />
+            <i-ri-arrow-up-s-line v-if="!playerModeState" class="text-gray-100 top-[1px]" width="22px" height="22px" />
+            <i-ri-arrow-down-s-line class="text-gray-100 bottom-[1px]" width="22px" height="22px" />
+            <i-ri-arrow-up-s-line v-if="playerModeState" class="text-gray-100 top-[1px]" width="22px" height="22px" />
           </div>
         </div>
         <div class="flex flex-col w-full pl-2">
@@ -29,31 +29,31 @@
       </div>
       <div class="col-span-1 w-full flex justify-center flex-1 gap-6 items-center">
         <slot>
-          <i-ic:round-skip-previous @click="onPrevious()" width="36px" height="36px"
+          <i-ic-round-skip-previous @click="onPrevious()" width="36px" height="36px"
             class="text-red-600 cursor-pointer" />
           <div class="bg-red-600 rounded-[50%] h-12 w-12 flex items-center justify-center cursor-pointer"
             @click="onToggle()">
-            <i-ic:baseline-pause v-if="playState" class="text-white" width="28px" height="28px" />
-            <i-ic:baseline-play-arrow v-else class="text-white" width="28px" height="28px" />
+            <i-ic-baseline-pause v-if="playState" class="text-white" width="28px" height="28px" />
+            <i-ic-baseline-play-arrow v-else class="text-white" width="28px" height="28px" />
           </div>
-          <i-ic:round-skip-next @click="onNext()" width="36px" height="36px" class="text-red-600 cursor-pointer" />
+          <i-ic-round-skip-next @click="onNext()" width="36px" height="36px" class="text-red-600 cursor-pointer" />
         </slot>
       </div>
       <div class="col-span-2 w-full flex items-center gap-6 lg:gap-8 px-4">
         <div class="flex-1" />
         <slot name="action"></slot>
         <div class="flex h-full items-center gap-4" @click="() => playmode < 2 ? playmode++ : playmode = 0">
-          <i-ic:outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
+          <i-ic-outline-repeat v-if="playmode === PlayModeType.REPEAT" width="24px" height="24px"
             class="text-[--text-color] cursor-pointer" />
-          <i-ic:outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
+          <i-ic-outline-shuffle v-else-if="playmode === PlayModeType.SHUFFLE" width="24px" height="24px"
             class="text-[--text-color] cursor-pointer" />
-          <i-ic:outline-repeat-one v-else width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
+          <i-ic-outline-repeat-one v-else width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
         <div class="flex h-full items-center gap-4" @click="isOpen = !isOpen">
-          <i-ri:play-list-2-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
+          <i-ri-play-list2-line width="24px" height="24px" class="text-[--text-color] cursor-pointer" />
         </div>
         <div class="flex lg:grid lg:grid-cols-4 h-full items-center gap-2 lg:w-40 md:hidden">
-          <i-ri:volume-up-line width="24px" height="24px" class="text-[--text-color] cursor-pointer col-span-1" />
+          <i-ri-volume-up-line width="24px" height="24px" class="text-[--text-color] cursor-pointer col-span-1" />
           <NeProgress :duration="0" @percent-change="onVolumeChange" :contactor="false" :always-contactor="true"
             :percentage="props.volume" class="col-span-3" />
         </div>
@@ -78,17 +78,28 @@
       </div>
       <div class="flex-1 col-span-3 grid grid-cols-2 items-center">
         <div @click="onToggle()" class="w-full col-span-1 text-[--text-color] flex justify-center">
-          <i-ic:baseline-pause v-if="playState" class="cursor-pointer " width="28px" height="28px" />
-          <i-ic:baseline-play-arrow v-else class="cursor-pointer" width="28px" height="28px" />
+          <i-ic-baseline-pause v-if="playState" class="cursor-pointer " width="28px" height="28px" />
+          <i-ic-baseline-play-arrow v-else class="cursor-pointer" width="28px" height="28px" />
         </div>
         <div @click="isOpen = !isOpen" class="cursor-pointer w-full col-span-1 text-[--text-color] flex justify-center">
-          <i-ri:play-list-2-line width="24px" height="24px" />
+          <i-ri-play-list2-line width="24px" height="24px" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import IIcBaselinePause from "virtual:icons/ic/baseline-pause"
+import IIcBaselinePlayArrow from "virtual:icons/ic/baseline-play-arrow"
+import IIcOutlineRepeat from "virtual:icons/ic/outline-repeat"
+import IIcOutlineRepeatOne from "virtual:icons/ic/outline-repeat-one"
+import IIcOutlineShuffle from "virtual:icons/ic/outline-shuffle"
+import IIcRoundSkipNext from "virtual:icons/ic/round-skip-next"
+import IIcRoundSkipPrevious from "virtual:icons/ic/round-skip-previous"
+import IRiArrowDownSLine from "virtual:icons/ri/arrow-down-s-line"
+import IRiArrowUpSLine from "virtual:icons/ri/arrow-up-s-line"
+import IRiPlayList2Line from "virtual:icons/ri/play-list-2-line"
+import IRiVolumeUpLine from "virtual:icons/ri/volume-up-line"
 import { PlayModeType } from "@neplayer/components/player"
 import { NeProgress } from "@neplayer/components/progress"
 import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"

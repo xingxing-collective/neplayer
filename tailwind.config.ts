@@ -1,7 +1,11 @@
 import type { Config } from "tailwindcss"
 
 export default (<Partial<Config>>{
-  content: ["./packages/**/*.{vue,js,ts,jsx,tsx}"],
+  content: [
+    "./packages/**/*.{vue,js,ts,jsx,tsx}",
+    "./playground/**/*.html",
+    "./playground/**/*.vue",
+  ],
   darkMode: "class",
   theme: {
     extend: {

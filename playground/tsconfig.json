@@ -6,18 +6,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strict": true,
-    "baseUrl": ".",
-    "rootDir": ".",
-    "paths": {
-      "@neplayer/*": ["./packages/*"],
-      "neplayer": ["./packages"]
-    },
-    "types": ["unplugin-icons/types/vue"],
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": "..",
+    "paths": {
+      "neplayer": ["../packages/index.ts"],
+      "@neplayer/*": ["../packages/*"]
+    }
   },
-  "exclude": ["docs", "dist", "playground", "node_modules"],
-  "include": ["packages"]
+  "exclude": ["dist", "node_modules"]
 }

@@ -1,6 +1,8 @@
-import neplayer from "../../dist/index.mjs"
 import "../../dist/style.css"
+
+import { createPinia } from "pinia"
 import { createApp } from "vue"
 import App from "./App.vue"
 
-createApp(App).use(neplayer).mount("#app")
+const pinia = createPinia()
+createApp(App).use(pinia).mount("#app")
