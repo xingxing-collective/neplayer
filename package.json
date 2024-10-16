@@ -7,8 +7,8 @@
   "homepage": "https://github.com/xingxing-collective/neplayer#readme",
   "scripts": {
     "prepare": "husky",
-    "build": "vite build && pnpm run build:types",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
+    "build": "pnpm clean && vite build && pnpm build:types",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --declarationDir dist/types && mv dist/types/packages/* dist/types/ && rimraf dist/types/packages",
     "dev": "pnpm -C playground dev",
     "clean": "rimraf dist",
     "lint": "eslint --cache . && biome check .",
