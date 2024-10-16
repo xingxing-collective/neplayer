@@ -13,8 +13,8 @@ sed -i.bak 's/\.\/\.github\/assets/https:\/\/github.com\/xingxing-collective\/ne
 
 # Release packages
 TAG="latest"
-cp ./LICENSE .
-cp ./README.md .
+cp ../../LICENSE .
+cp ../../README.md .
 pnpm publish --access public --no-git-checks --tag $TAG
 
 mv README.md.bak README.md
