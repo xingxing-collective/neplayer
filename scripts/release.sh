@@ -16,4 +16,17 @@ TAG="latest"
 
 pnpm publish --access public --no-git-checks --tag $TAG
 
-mv README.md.bak README.md
+
+# Restore README.md from backup
+if [ -f README.md.bak ]; then
+    mv README.md.bak README.md
+    echo "Restored README.md from backup."
+else
+    echo "No backup found for README.md."
+fi
+
+# Optionally remove the .bak file
+if [ -f README.md.bak ]; then
+    rm README.md.bak
+    echo "Removed backup file README.md.bak."
+fi
