@@ -8,11 +8,6 @@ git restore -s@ -SW  -- packages
 # Build all once to ensure things are nice
 pnpm build
 
-# use absolute urls for better rendering on npm
-sed -i.bak 's/\.\/\.github\/assets/https:\/\/github.com\/xingxing-collective\/neplayer\/tree\/main\/\.github\/assets/g' README.md
-
-mv README.md.bak README.md
-
 # Release packages
 TAG="latest"
 
