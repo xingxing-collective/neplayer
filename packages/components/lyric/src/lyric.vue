@@ -35,8 +35,7 @@ import BetterScoll, { type Options } from "@better-scroll/core"
 import type { BScrollConstructor } from "@better-scroll/core/dist/types/BScroll"
 import MouseWheel from "@better-scroll/mouse-wheel"
 import ScrollBar from "@better-scroll/scroll-bar"
-import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
-import { storeToRefs } from "pinia"
+import { useNePlayer } from "@neplayer/composables/useNePlayer"
 import {
   computed,
   nextTick,
@@ -52,8 +51,7 @@ BetterScoll.use(ScrollBar)
 BetterScoll.use(MouseWheel)
 
 const props = defineProps<LyricProps>()
-const playerStore = useNePlayerStore()
-const { currentTime, playerModeState } = storeToRefs(playerStore)
+const { currentTime, playerModeState } = useNePlayer()
 
 const container = ref<HTMLDivElement>()
 const lyricContainer = shallowRef<Array<HTMLDivElement>>()
