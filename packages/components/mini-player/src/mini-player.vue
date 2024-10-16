@@ -63,7 +63,7 @@
       <NeProgress :percentage="percent" :contactor="true" :always-contactor="false" @percent-change="onPercentChange" />
     </div>
     <div class="grid grid-cols-10 px-4 gap-1 md:hidden lg:hidden h-full w-full">
-      <div class="col-span-2 w-full flex items-center" @click="playerModeStateToggle()" >
+      <div class="col-span-2 w-full flex items-center" @click="playerModeStateToggle()">
         <div class="w-12 flex justify-center items-center rounded-[50%] bg-[rgb(42,42,42)] aspect-square">
           <div :class="$style.outer" :style="{ animationPlayState: !playState ? 'paused' : 'inherit' }">
             <img v-if="picUrl" class="rounded-[50%] w-[75%] h-[75%]" :src="picUrl" lazy="loaded" />
@@ -102,9 +102,8 @@ import IRiPlayList2Line from "virtual:icons/ri/play-list-2-line"
 import IRiVolumeUpLine from "virtual:icons/ri/volume-up-line"
 import { PlayModeType } from "@neplayer/components/player"
 import { NeProgress } from "@neplayer/components/progress"
-import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
+import { useNePlayer } from "@neplayer/composables/useNePlayer"
 import $dayjs from "dayjs"
-import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { type MiniPlayerProps, miniPlayerEmits } from "./mini-player"
 
@@ -114,8 +113,6 @@ const props = withDefaults(defineProps<MiniPlayerProps>(), {
 
 const emit = defineEmits(miniPlayerEmits)
 
-const playerStore = useNePlayerStore()
-const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
 const {
   playerModeState,
   playState,
@@ -125,7 +122,10 @@ const {
   playmode,
   currentSong,
   isOpen,
-} = storeToRefs(playerStore)
+  playerModeStateToggle,
+  playStateToggle,
+  getNextSong,
+} = useNePlayer()
 
 const percent = computed(() => {
   if (!currentTime.value || !currentSong.value?.duration) return 0

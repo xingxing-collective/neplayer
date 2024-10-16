@@ -51,17 +51,14 @@ import IMaterialSymbolsLightPlayArrow from "virtual:icons/material-symbols-light
 import NeFullPlayer from "@neplayer/components/full-player"
 import NeMiniPlayer from "@neplayer/components/mini-player"
 import NeSlideover from "@neplayer/components/slideover"
-import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
+import { useNePlayer } from "@neplayer/composables/useNePlayer"
 import $dayjs from "dayjs"
-import { storeToRefs } from "pinia"
 import { computed, watch } from "vue"
 import { PlayModeType, type PlayerProps, playerEmits } from "./player"
 
 const props = defineProps<PlayerProps>()
 const emit = defineEmits(playerEmits)
 
-const playerStore = useNePlayerStore()
-const { addSongs, deleteSong, clearPlaylist, getNextSong } = playerStore
 const {
   playState,
   audio,
@@ -72,7 +69,11 @@ const {
   currentSong,
   volume,
   shufflePlaylist,
-} = storeToRefs(playerStore)
+  addSongs,
+  deleteSong,
+  clearPlaylist,
+  getNextSong,
+} = useNePlayer()
 
 const currentPlaylist = computed(() => {
   return playmode.value === PlayModeType.SHUFFLE

@@ -1,10 +1,9 @@
 import { PlayModeType, type Playlist, type Song } from "@neplayer/components"
 import { getAudioDuration, shuffleArray } from "@neplayer/utils"
-import { useToggle } from "@vueuse/core"
-import { defineStore } from "pinia"
+import { createSharedComposable, useToggle } from "@vueuse/core"
 import { ref, watch } from "vue"
 
-export const useNePlayerStore = defineStore("player", () => {
+const _useNePlayer = () => {
   const audio = ref<HTMLAudioElement>()
   /**
    * Gets or sets the volume level for audio portions of the media element.
@@ -118,4 +117,6 @@ export const useNePlayerStore = defineStore("player", () => {
     clearPlaylist,
     getNextSong,
   }
-})
+}
+
+export const useNePlayer = createSharedComposable(_useNePlayer)

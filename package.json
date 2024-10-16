@@ -70,7 +70,6 @@
     "@better-scroll/mouse-wheel": "^2.5.1",
     "@better-scroll/scroll-bar": "^2.5.1",
     "@vueuse/core": "^11.1.0",
-    "pinia": "^2.2.2",
     "vue": "^3.5.6"
   }
 }

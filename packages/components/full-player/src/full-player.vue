@@ -138,10 +138,9 @@ import IRiPlayList2Line from "virtual:icons/ri/play-list-2-line"
 import NeLyric from "@neplayer/components/lyric"
 import { PlayModeType } from "@neplayer/components/player"
 import { NeProgress } from "@neplayer/components/progress"
-import { useNePlayerStore } from "@neplayer/stores/useNePlayerStore"
+import { useNePlayer } from "@neplayer/composables/useNePlayer"
 import { useToggle } from "@vueuse/core"
 import $dayjs from "dayjs"
-import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { type FullPlayerProps, fullPlayerEmits } from "./full-player"
 
@@ -149,8 +148,7 @@ defineProps<FullPlayerProps>()
 const emit = defineEmits(fullPlayerEmits)
 
 const [lyricState, lyricStateToggle] = useToggle(true)
-const playerStore = useNePlayerStore()
-const { playerModeStateToggle, playStateToggle, getNextSong } = playerStore
+
 const {
   playerModeState,
   playState,
@@ -159,7 +157,10 @@ const {
   audio,
   playmode,
   currentSong,
-} = storeToRefs(playerStore)
+  playerModeStateToggle,
+  playStateToggle,
+  getNextSong,
+} = useNePlayer()
 
 function onToggle() {
   playStateToggle()
