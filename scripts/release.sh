@@ -13,8 +13,16 @@ sed -i.bak 's/\.\/\.github\/assets/https:\/\/github.com\/xingxing-collective\/ne
 
 # Release packages
 TAG="latest"
+
+# Print current directory and check for LICENSE and README.md
+echo "Current directory: $(pwd)"
+echo "Checking for LICENSE and README.md files..."
+ls ../../
+
+# Copy LICENSE and README.md
 cp ../../LICENSE .
 cp ../../README.md .
+
 pnpm publish --access public --no-git-checks --tag $TAG
 
 mv README.md.bak README.md
