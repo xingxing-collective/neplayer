@@ -1,6 +1,6 @@
 {
   "name": "neplayer",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "packageManager": "pnpm@9.4.0",
   "description": "UI components and hooks for building audio players on the web",
   "type": "module",
