@@ -5,6 +5,8 @@
 </template>
 <script setup lang="ts">
 import { NePlayer } from "neplayer"
+import "../../dist/style.css"
+
 import { onMounted, ref } from "vue"
 
 const foo = ref({})
